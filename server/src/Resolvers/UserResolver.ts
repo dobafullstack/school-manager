@@ -7,7 +7,7 @@ import {
     Query,
     Resolver,
     Root,
-    UseMiddleware
+    UseMiddleware,
 } from 'type-graphql';
 import Class from '../Entities/Class';
 import School from '../Entities/School';
@@ -105,10 +105,9 @@ export default class UserResolver {
     }
 
     //Get My User
-    @UseMiddleware(Authentication)
     @Query((_return) => User, { nullable: true })
     async GetMyUser(@Ctx() { req }: Context): Promise<User | null> {
-        const user = await User.findOne(req.session.userId);
+        const user = await User.findOne({ id: req.session.userId });
 
         if (!user) return null;
 

@@ -1,0 +1,32 @@
+fragment classInfo on Class {
+    id
+    name
+    grade
+    teacher {
+        id
+        username
+        email
+        name
+        role
+        createdAt
+        updatedAt
+    }
+    school {
+        id
+        city
+        district
+        name
+        createdAt
+        updatedAt
+    }
+    students {
+        id
+        name
+        age
+        phone
+        createdAt
+        updatedAt
+    }
+    createdAt
+    updatedAt
+}

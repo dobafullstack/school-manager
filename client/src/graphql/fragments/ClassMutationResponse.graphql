@@ -1,0 +1,11 @@
+fragment classMutation on ClassMutationResponse{
+    code,
+    success,
+    message,
+    result{
+        ...classInfo
+    }
+    errors{
+        ...fieldErrors
+    }
+}

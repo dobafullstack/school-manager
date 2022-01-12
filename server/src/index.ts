@@ -28,6 +28,12 @@ const main = async () => {
     const app = express();
     const PORT = process.env.PORT || 4000;
 
+    const corsOptions = {
+        origin: 'http://localhost:3000/',
+        methods: ['POST'],
+        credentials: true,
+    };
+
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
             resolvers: resolvers as any,
@@ -60,7 +66,7 @@ const main = async () => {
 
     await apolloServer.start();
 
-    apolloServer.applyMiddleware({ app, cors: false });
+    apolloServer.applyMiddleware({ app, cors: corsOptions });
 
     app.listen(PORT, () =>
         Logger.success(`Server is running on: http://localhost:${PORT}${apolloServer.graphqlPath}`)

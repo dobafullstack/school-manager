@@ -1,0 +1,25 @@
+fragment schoolInfo on School {
+    id
+    city
+    district
+    name
+    teachers {
+        id
+        username
+        email
+        name
+        password
+        role
+        createdAt
+        updatedAt
+    }
+    classes {
+        id
+        name
+        grade
+        createdAt
+        updatedAt
+    }
+    createdAt
+    updatedAt
+}

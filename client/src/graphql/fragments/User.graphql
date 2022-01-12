@@ -1,0 +1,24 @@
+fragment userInfo on User {
+    id
+    school {
+        id
+        city
+        district
+        name
+        createdAt
+        updatedAt
+    }
+    class {
+        id
+        name
+        grade
+        createdAt
+        updatedAt
+    }
+    username
+    email
+    name
+    role
+    createdAt
+    updatedAt
+}

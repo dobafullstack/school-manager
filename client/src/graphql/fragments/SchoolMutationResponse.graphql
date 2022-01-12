@@ -1,0 +1,11 @@
+fragment schoolMutation on SchoolMutationResponse {
+    code
+    success
+    message
+    result {
+        ...schoolInfo
+    }
+    errors {
+        ...fieldErrors
+    }
+}
