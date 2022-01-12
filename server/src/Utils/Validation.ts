@@ -1,5 +1,9 @@
+import User from '../Entities/User';
+import { ObjectType } from 'type-graphql';
+import MutationResponse from '../Types/Mutation/MutationResponse';
 import RegisterInput from '../Types/InputType/RegisterInput';
-import UserMutationResponse from '../Types/Mutation/UserMutationResponse';
+@ObjectType()
+export class UserMutationResponse extends MutationResponse(User) {}
 
 export const ValidateRegister = (registerInput: RegisterInput): UserMutationResponse | null => {
     const { username, email, password } = registerInput;
@@ -29,15 +33,19 @@ export const ValidateRegister = (registerInput: RegisterInput): UserMutationResp
     }
     
     //email
-    if (!email.includes('@')){
-        return {
-            code: 400,
-            success: false,
-            message: 'Invalid email',
-            errors: [{
-                field: 'email',
-                message: 'Email must include @ symbol'
-            }]
+    if (email){
+        if (!email.includes('@')) {
+            return {
+                code: 400,
+                success: false,
+                message: 'Invalid email',
+                errors: [
+                    {
+                        field: 'email',
+                        message: 'Email must include @ symbol',
+                    },
+                ],
+            };
         }
     }
     

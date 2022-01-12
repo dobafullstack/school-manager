@@ -1,17 +1,24 @@
-import { Field, InterfaceType } from 'type-graphql';
+import { ClassType, Field, InterfaceType, ObjectType } from 'type-graphql';
 import FieldError from '../FieldError';
 
-@InterfaceType()
-export default abstract class MutationResponse {
-    @Field()
-    code!: number;
+export default function MutationResponse<T>(Result: ClassType<T>){
+    @ObjectType({ isAbstract: true })
+    abstract class MutationResponseClass {
+        @Field()
+        code!: number;
 
-    @Field()
-    success!: boolean;
+        @Field()
+        success!: boolean;
 
-    @Field()
-    message!: string;
+        @Field()
+        message!: string;
 
-    @Field((_return) => [FieldError], { nullable: true })
-    errors?: FieldError[];
+        @Field(_type => Result, {nullable: true})
+        result?: T;
+
+        @Field((_return) => [FieldError], { nullable: true })
+        errors?: FieldError[];
+    }
+
+    return MutationResponseClass
 }
