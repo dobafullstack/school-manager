@@ -283,6 +283,13 @@ export type UserInfoFragment = { __typename?: 'User', id: string, username: stri
 
 export type UserMutationFragment = { __typename?: 'UserMutationResponse', code: number, success: boolean, message: string, result?: { __typename?: 'User', id: string, username: string, email?: string | null | undefined, name: string, role: string, createdAt?: any | null | undefined, updatedAt?: any | null | undefined, school?: { __typename?: 'School', id: string, city: string, district: string, name: string, createdAt: string, updatedAt: string } | null | undefined, class?: { __typename?: 'Class', id: string, name: string, grade: number, createdAt: any, updatedAt: any } | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined };
 
+export type CreateSchoolMutationVariables = Exact<{
+  createSchoolInput: SchoolInput;
+}>;
+
+
+export type CreateSchoolMutation = { __typename?: 'Mutation', CreateSchool: { __typename?: 'SchoolMutationResponse', code: number, success: boolean, message: string, result?: { __typename?: 'School', id: string, city: string, district: string, name: string, createdAt: string, updatedAt: string, teachers: Array<{ __typename?: 'User', id: string, username: string, email?: string | null | undefined, name: string, password: string, role: string, createdAt?: any | null | undefined, updatedAt?: any | null | undefined }>, classes: Array<{ __typename?: 'Class', id: string, name: string, grade: number, createdAt: any, updatedAt: any }> } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined } };
+
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
@@ -301,6 +308,11 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', Register: { __typename?: 'UserMutationResponse', code: number, success: boolean, message: string, result?: { __typename?: 'User', id: string, username: string, email?: string | null | undefined, name: string, role: string, createdAt?: any | null | undefined, updatedAt?: any | null | undefined, school?: { __typename?: 'School', id: string, city: string, district: string, name: string, createdAt: string, updatedAt: string } | null | undefined, class?: { __typename?: 'Class', id: string, name: string, grade: number, createdAt: any, updatedAt: any } | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined } };
+
+export type GetAllSchoolQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSchoolQuery = { __typename?: 'Query', GetAllSchool: Array<{ __typename?: 'School', id: string, city: string, district: string, name: string, createdAt: string, updatedAt: string, teachers: Array<{ __typename?: 'User', id: string, username: string, email?: string | null | undefined, name: string, password: string, role: string, createdAt?: any | null | undefined, updatedAt?: any | null | undefined }>, classes: Array<{ __typename?: 'Class', id: string, name: string, grade: number, createdAt: any, updatedAt: any }> }> };
 
 export type GetMyUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -473,6 +485,39 @@ export const UserMutationFragmentDoc = gql`
 }
     ${UserInfoFragmentDoc}
 ${FieldErrorsFragmentDoc}`;
+export const CreateSchoolDocument = gql`
+    mutation CreateSchool($createSchoolInput: SchoolInput!) {
+  CreateSchool(createSchoolInput: $createSchoolInput) {
+    ...schoolMutation
+  }
+}
+    ${SchoolMutationFragmentDoc}`;
+export type CreateSchoolMutationFn = Apollo.MutationFunction<CreateSchoolMutation, CreateSchoolMutationVariables>;
+
+/**
+ * __useCreateSchoolMutation__
+ *
+ * To run a mutation, you first call `useCreateSchoolMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSchoolMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSchoolMutation, { data, loading, error }] = useCreateSchoolMutation({
+ *   variables: {
+ *      createSchoolInput: // value for 'createSchoolInput'
+ *   },
+ * });
+ */
+export function useCreateSchoolMutation(baseOptions?: Apollo.MutationHookOptions<CreateSchoolMutation, CreateSchoolMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSchoolMutation, CreateSchoolMutationVariables>(CreateSchoolDocument, options);
+      }
+export type CreateSchoolMutationHookResult = ReturnType<typeof useCreateSchoolMutation>;
+export type CreateSchoolMutationResult = Apollo.MutationResult<CreateSchoolMutation>;
+export type CreateSchoolMutationOptions = Apollo.BaseMutationOptions<CreateSchoolMutation, CreateSchoolMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($loginInput: LoginInput!) {
   Login(loginInput: $loginInput) {
@@ -569,6 +614,40 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const GetAllSchoolDocument = gql`
+    query GetAllSchool {
+  GetAllSchool {
+    ...schoolInfo
+  }
+}
+    ${SchoolInfoFragmentDoc}`;
+
+/**
+ * __useGetAllSchoolQuery__
+ *
+ * To run a query within a React component, call `useGetAllSchoolQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSchoolQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSchoolQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSchoolQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSchoolQuery, GetAllSchoolQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSchoolQuery, GetAllSchoolQueryVariables>(GetAllSchoolDocument, options);
+      }
+export function useGetAllSchoolLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSchoolQuery, GetAllSchoolQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSchoolQuery, GetAllSchoolQueryVariables>(GetAllSchoolDocument, options);
+        }
+export type GetAllSchoolQueryHookResult = ReturnType<typeof useGetAllSchoolQuery>;
+export type GetAllSchoolLazyQueryHookResult = ReturnType<typeof useGetAllSchoolLazyQuery>;
+export type GetAllSchoolQueryResult = Apollo.QueryResult<GetAllSchoolQuery, GetAllSchoolQueryVariables>;
 export const GetMyUserDocument = gql`
     query GetMyUser {
   GetMyUser {

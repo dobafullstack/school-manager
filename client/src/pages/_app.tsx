@@ -1,13 +1,15 @@
-import '../assets/css/loading.css';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
 import '@fontsource/quicksand';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
-import { ReactElement, ReactNode, Suspense } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
+import { Provider } from 'react-redux';
+import { ToastProvider } from 'react-toast-notifications';
+import '../assets/css/loading.css';
 import AppLayout from '../Layout/AppLayout';
+import store from '../redux/store';
 import theme from '../theme';
-import Loading from '../components/Loading';
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/graphql',
@@ -28,9 +30,19 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
     return (
         <ApolloProvider client={client}>
-            <ChakraProvider resetCSS theme={theme}>
-                {getLayout(<Component {...pageProps} />)}
-            </ChakraProvider>
+            <Provider store={store}>
+                <ChakraProvider resetCSS theme={theme}>
+                    {getLayout(
+                        <ToastProvider
+                            autoDismiss
+                            autoDismissTimeout={6000}
+                            placement="bottom-left"
+                        >
+                            <Component {...pageProps} />
+                        </ToastProvider>
+                    )}
+                </ChakraProvider>
+            </Provider>
         </ApolloProvider>
     );
 }

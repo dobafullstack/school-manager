@@ -94,8 +94,8 @@ export default class AuthResolver {
                 success: false,
                 message: 'Invalid username or password',
                 errors: [
-                    { field: 'usernameOrEmail', message: 'Invalid' },
-                    { field: 'password', message: 'Invalid' },
+                    { field: 'usernameOrEmail', message: 'Invalid username or email' },
+                    { field: 'password', message: 'Invalid password' },
                 ],
             };
         }
