@@ -1,14 +1,12 @@
 import { Box, Button, Flex, Image, Link, Text } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers } from 'formik';
-import React, { ReactElement } from 'react'
-import CustomInput from '../components/CustomInput';
+import React, { ReactElement } from 'react';
+import CustomInput from '../components/Common/CustomInput';
 import mainBg from '../assets/images/bg3.png';
 import NextLink from 'next/link';
 import UserLayout from '../Layout/UserLayout';
 
-interface Props {
-    
-}
+interface Props {}
 
 export default function Register({}: Props): ReactElement {
     const initialValues = {
@@ -16,7 +14,7 @@ export default function Register({}: Props): ReactElement {
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
     };
 
     const onSubmit = async (
@@ -79,10 +77,6 @@ export default function Register({}: Props): ReactElement {
     );
 }
 
-Register.getLayout = function getLayout(page: ReactElement){
-    return (
-        <UserLayout>
-            {page}
-        </UserLayout>
-    )
-}
+Register.getLayout = function getLayout(page: ReactElement) {
+    return <UserLayout>{page}</UserLayout>;
+};

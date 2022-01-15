@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 import * as yup from 'yup';
-import CustomInput from '../components/CustomInput';
+import CustomInput from '../components/Common/CustomInput';
 import {
     GetMyUserDocument,
     GetMyUserQuery,

@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
-import DropdownItem from '../components/DropdownItem';
-import SideItem from '../components/SideItem';
+import DropdownItem from '../components/Common/DropdownItem';
+import SideItem from '../components/Common/SideItem';
 import {
     AiOutlineHome,
     AiTwotoneBank,

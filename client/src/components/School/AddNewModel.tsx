@@ -5,8 +5,8 @@ import { useToasts } from 'react-toast-notifications';
 import * as yup from 'yup';
 import { GetAllSchoolDocument, GetAllSchoolQuery, SchoolInput, useCreateSchoolMutation } from '../../graphql/generated/graphql';
 import City from '../../models/City';
-import AddNewDrawer from '../AddNewDrawer';
-import CustomInput from '../CustomInput';
+import AddNewDrawer from '../Common/AddNewDrawer';
+import CustomInput from '../Common/CustomInput';
 
 interface Props {
     cities: City[];

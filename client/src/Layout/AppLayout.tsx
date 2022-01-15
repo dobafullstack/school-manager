@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import router from 'next/router';
 import React, { ReactElement } from 'react';
-import Loading from '../components/Loading';
+import Loading from '../components/Common/Loading';
 import { useGetMyUserQuery } from '../graphql/generated/graphql';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
@@ -12,12 +12,11 @@ interface Props {
 
 export default function AppLayout({ children }: Props): ReactElement {
     const { data, loading, error } = useGetMyUserQuery();
-    const router = useRouter();
 
     if (data?.GetMyUser === null) {
-        router.replace('/login');
+        typeof window !== 'undefined' && router.replace('/login');
     } else {
-        if (error) router.push('/404');
+        if (error) typeof window !== 'undefined' && router.push('/404');
 
         if (loading) return <Loading />;
 

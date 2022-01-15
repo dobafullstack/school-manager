@@ -44,7 +44,6 @@ export default class SchoolResolver {
     }
 
     //Get All School
-    @UseMiddleware(Authentication)
     @Query((_return) => [School])
     async GetAllSchool(): Promise<School[]> {
         const schools = await School.find({});
@@ -53,7 +52,6 @@ export default class SchoolResolver {
     }
 
     //Get Detail School
-    @UseMiddleware(Authentication)
     @Query((_return) => School, { nullable: true })
     async GetSchoolById(@Arg('schoolId') schoolId: number): Promise<School | null> {
         const school = await School.findOne(schoolId);
